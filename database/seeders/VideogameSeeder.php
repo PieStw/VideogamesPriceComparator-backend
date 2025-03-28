@@ -16,7 +16,7 @@ class VideogameSeeder extends Seeder
         $response = Http::get('https://api.rawg.io/api/games', [
             'key' => env('API_KEY'),
             'page_size' => 40,
-            'page' => 2,
+            'page' => 1,
         ]);
 
         return $response->json()['results'];

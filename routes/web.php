@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\VideogameController;
+use App\Http\Controllers\Api\VideogameController as ApiVideogameController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +19,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::get('/videogames/search', [VideogameController::class, 'searchVideogames'])
+    ->middleware(['auth', 'verified'])
+    ->name('videogames.searchVideogames');
+
+Route::resource("/videogames", VideogameController::class)
+    ->middleware(['auth', 'verified']);
+
+
+Route::get('/api/videogames/{name}', [ApiVideogameController::class, 'getByName']);
+Route::resource('/api/videogames', ApiVideogameController::class);
+
+
+require __DIR__ . '/auth.php';
