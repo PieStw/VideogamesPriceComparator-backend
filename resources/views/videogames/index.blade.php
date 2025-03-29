@@ -37,7 +37,7 @@
                 <td>{{ $videogame->title }}</td>
                 <td>{{ $videogame->release_date }}</td>
                 <td>{{ $videogame->rating }}</td>
-                <td><a href="{{ route('videogames.show', $videogame->id) }}" class="btn btn-primary">Dettaglio</a></td>
+                <td><a href="/videogames/{{ $videogame->id }}" class="btn btn-primary">Dettaglio</a></td>
                 <td><a href="{{ route('videogames.edit', $videogame->id) }}" class="btn btn-warning">Modifica</a></td>
                 <td>
                     <form action="{{ route('videogames.destroy', $videogame->id) }}" method="POST" class="d-inline">

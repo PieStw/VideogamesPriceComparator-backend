@@ -27,7 +27,6 @@ Route::resource("/videogames", VideogameController::class)
     ->middleware(['auth', 'verified']);
 
 
-Route::get('/api/videogames/{name}', [ApiVideogameController::class, 'getByName']);
 Route::resource('/api/videogames', ApiVideogameController::class);
 
 

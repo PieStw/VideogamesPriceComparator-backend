@@ -4,12 +4,24 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Videogame;
+use Illuminate\Http\Request;
 
 class VideogameController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $videogames = Videogame::all();
+        $data = $request->all();
+
+        if (isset($data['name'])) {
+            $videogames = Videogame::where('title', 'like', '%' . $data["name"] . '%');
+        } else {
+            $videogames = Videogame::query();
+        }
+
+        $pageSize = $request->input('page_size', 20);
+
+        $videogames = $videogames->paginate($pageSize);
+
         return response()->json([
             "success" => true,
             "data" => $videogames
@@ -23,16 +35,6 @@ class VideogameController extends Controller
         return response()->json([
             "success" => true,
             "data" => $videogame
-        ]);
-    }
-
-    public function getByName($name)
-    {
-        $videogames = Videogame::where('title', 'like', '%' . $name . '%')->get();
-
-        return response()->json([
-            "success" => true,
-            "data" => $videogames
         ]);
     }
 }
