@@ -24,9 +24,18 @@ class VideogameController extends Controller
 
         return response()->json([
             "success" => true,
-            "data" => $videogames
+            "data" => $videogames->items(),
+            "pagination" => [
+                "total" => $videogames->total(),
+                "per_page" => $videogames->perPage(),
+                "current_page" => $videogames->currentPage(),
+                "last_page" => $videogames->lastPage(),
+                "next_page_url" => $videogames->nextPageUrl(),
+                "prev_page_url" => $videogames->previousPageUrl(),
+            ]
         ]);
     }
+
 
 
     public function show(Videogame $videogame)
@@ -37,6 +46,7 @@ class VideogameController extends Controller
             "data" => $videogame
         ]);
     }
+
 
     public function bestseller()
     {
