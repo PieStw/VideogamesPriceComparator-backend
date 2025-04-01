@@ -34,7 +34,23 @@ class VideogameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $videogame = new Videogame();
+        $videogame->title = $data['title'];
+        $videogame->description = $data['description'];
+        $videogame->release_date = $data['release_date'];
+        $videogame->image_url = "https://example.com/image.jpg";
+        $videogame->rating = $data['rating'];
+        $videogame->save();
+
+        if (isset($data['genres'])) {
+            $videogame->genres()->attach($data['genres']);
+        }
+        if (isset($data['platforms'])) {
+            $videogame->platforms()->attach($data['platforms']);
+        }
+        return redirect()->route('videogames.index')->with('success', 'Videogame created successfully.');
     }
 
     /**
@@ -59,9 +75,29 @@ class VideogameController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Videogame $videogame)
     {
-        //
+        $data = $request->all();
+
+        $videogame->title = $data['title'];
+        $videogame->description = $data['description'];
+        $videogame->release_date = $data['release_date'];
+        $videogame->rating = $data['rating'];
+        $videogame->save();
+
+        if ($request->has('genres')) {
+            $videogame->genres()->sync($data['genres']);
+        } else {
+            $videogame->genres()->detach();
+        }
+
+        if ($request->has('platforms')) {
+            $videogame->platforms()->sync($data['platforms']);
+        } else {
+            $videogame->platforms()->detach();
+        }
+
+        return redirect()->route('videogames.index')->with('success', 'Videogame edit successfully.');
     }
 
     /**

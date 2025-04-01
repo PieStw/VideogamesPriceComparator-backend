@@ -12,6 +12,11 @@
 </div>
 
 <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold">Lista Videogiochi</h2>
+        <a href="{{ route('videogames.create') }}" class="btn btn-success">➕ Aggiungi Videogioco</a>
+    </div>
+
     <table class="table table-striped table-hover">
         <thead class="table-dark">
             <tr>
@@ -36,7 +41,7 @@
                     <td>{{ $videogame->title }}</td>
                     <td>{{ $videogame->release_date }}</td>
                     <td>{{ $videogame->rating }}</td>
-                    <td><a href="/videogames/{{ $videogame->id }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Dettagli">Dettaglio</a></td>
+                    <td><a href="{{ route('videogames.show', $videogame->id) }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Dettagli">Dettaglio</a></td>
                     <td><a href="{{ route('videogames.edit', $videogame->id) }}" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Modifica">Modifica</a></td>
                     <td>
                         <form action="{{ route('videogames.destroy', $videogame->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Sei sicuro di voler eliminare questo videogame?')">

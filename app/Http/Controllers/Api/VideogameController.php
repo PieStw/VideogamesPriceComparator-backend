@@ -37,4 +37,13 @@ class VideogameController extends Controller
             "data" => $videogame
         ]);
     }
+
+    public function bestseller()
+    {
+        $videogames = Videogame::orderBy('rating', 'desc')->take(10)->get();
+        return response()->json([
+            "success" => true,
+            "data" => $videogames
+        ]);
+    }
 }

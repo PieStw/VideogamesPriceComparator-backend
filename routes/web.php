@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\VideogameController;
-use App\Http\Controllers\Api\VideogameController as ApiVideogameController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
@@ -29,8 +28,6 @@ Route::resource("/videogames", VideogameController::class)
     ->middleware(['auth', 'verified'])
     ->middleware(Admin::class);
 
-
-Route::resource('/api/videogames', ApiVideogameController::class);
 
 
 require __DIR__ . '/auth.php';
