@@ -50,7 +50,7 @@ class VideogameController extends Controller
 
     public function bestseller()
     {
-        $videogames = Videogame::orderBy('rating', 'desc')->take(10)->get();
+        $videogames = Videogame::orderBy('rating', 'desc')->take(20)->get();
         return response()->json([
             "success" => true,
             "data" => $videogames
