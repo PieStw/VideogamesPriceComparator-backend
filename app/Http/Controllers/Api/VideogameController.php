@@ -18,7 +18,7 @@ class VideogameController extends Controller
             $videogames = Videogame::query();
         }
 
-        $pageSize = $request->input('page_size', 20);
+        $pageSize = $request->input('page_size', 21);
 
         $videogames = $videogames->paginate($pageSize);
 
