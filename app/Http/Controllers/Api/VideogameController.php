@@ -11,16 +11,27 @@ class VideogameController extends Controller
     public function index(Request $request)
     {
         $data = $request->all();
-
-        if (isset($data['name'])) {
-            $videogames = Videogame::where('title', 'like', '%' . $data["name"] . '%');
-        } else {
-            $videogames = Videogame::query();
-        }
-
         $pageSize = $request->input('page_size', 21);
 
-        $videogames = $videogames->paginate($pageSize);
+        $query = Videogame::with(['genres', 'platforms']);
+
+        if (!empty($data['name'])) {
+            $query->where('title', 'like', '%' . $data["name"] . '%');
+        }
+
+        if (!empty($data['genre'])) {
+            $query->whereHas('genres', function ($q) use ($data) {
+                $q->where('genres.id', '=', $data['genre']);
+            });
+        }
+
+        if (!empty($data['platform'])) {
+            $query->whereHas('platforms', function ($q) use ($data) {
+                $q->where('platforms.id', '=', $data['platform']);
+            });
+        }
+
+        $videogames = $query->paginate($pageSize);
 
         return response()->json([
             "success" => true,
@@ -35,7 +46,6 @@ class VideogameController extends Controller
             ]
         ]);
     }
-
 
 
     public function show(Videogame $videogame)
