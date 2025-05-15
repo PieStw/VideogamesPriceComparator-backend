@@ -49,6 +49,15 @@
                 @enderror
             </div>
 
+            <div class="mb-3">
+                <label for="image_url" class="form-label fw-bold">Image URL</label>
+                <input type="text" name="image_url" id="image_url" class="form-control @error('image_url') is-invalid @enderror"
+                     required minlength="3" maxlength="255" value="{{ $videogame->image_url }}">
+                @error('image_url')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
          
             <div class="mb-3">
                 <label class="form-label fw-bold">Generi</label>

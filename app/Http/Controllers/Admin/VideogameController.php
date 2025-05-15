@@ -40,7 +40,7 @@ class VideogameController extends Controller
         $videogame->title = $data['title'];
         $videogame->description = $data['description'];
         $videogame->release_date = $data['release_date'];
-        $videogame->image_url = "https://example.com/image.jpg";
+        $videogame->image_url = "https://placehold.co/600x400";
         $videogame->rating = $data['rating'];
         $videogame->save();
 
@@ -83,6 +83,7 @@ class VideogameController extends Controller
         $videogame->description = $data['description'];
         $videogame->release_date = $data['release_date'];
         $videogame->rating = $data['rating'];
+        $videogame->image_url = $data['image_url'] ?? "https://placehold.co/600x400";
         $videogame->save();
 
         if ($request->has('genres')) {
